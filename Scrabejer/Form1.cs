@@ -1,90 +1,70 @@
+using System.Collections.Generic;
+
 namespace Scrabejer
 {
     public partial class Form1 : Form
     {
 
-        public const string VER = "v1.0.0";
+        public const string VER = "v2.0.0";
 
-        private readonly ScrabbleDictionary dictionary;
+        private readonly DictionaryScavenger scavenger;
+        private readonly ScrabbleDictionaries scrabbleDictionarys;
+
+       // private readonly IEnumerator<string[]> dictionaryEnumerator;
         public Form1()
         {
             InitializeComponent();
             try
             {
-                dictionary = new ScrabbleDictionary();
+                scavenger = new DictionaryScavenger();
+                setDictionary(ScrabbleDictionaryLanguage.WEBSTER);
             }
             catch
             {
-                MessageBox.Show("No dictionary.json file found!");
-                Environment.Exit(-1);
             }
-            ResizeRedraw = true;
+       //     dictionaryEnumerator = new List<string[]> { scrabbleDictionarys.Collins, scrabbleDictionarys.Webster }.GetEnumerator();
+            
+        }
+        private void setValidWords()
+        {
+            listBox1.Items.Clear();
+            scavenger.RegexPattern = textBox2.Text;
+            scavenger.LettersInBank = textBox1.Text;
+            listBox1.Items.AddRange(scavenger.ValidWords.ToArray());
+        }
+        private void setDictionary(ScrabbleDictionaryLanguage lang)
+        {
+            scavenger.SetLanguage(lang);
+            switch (lang)
+            {
+                case ScrabbleDictionaryLanguage.WEBSTER:
+                    button4.Image = null;
+                    break;
+                case ScrabbleDictionaryLanguage.COLLINS:
+                    button4.Image = null;
+                    break;
+                default:
+                    throw new ArgumentException("lang cannot be NONE.");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            SetValidWords();
+            setValidWords();
         }
-        private void SetValidWords()
-        {
-            listBox1.Items.Clear();
-            dictionary.RegexPattern = textBox2.Text;
-            dictionary.LettersInBank = textBox1.Text;
-            listBox1.Items.AddRange(dictionary.ValidWords.ToArray());
-        }
-
-
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            SetValidWords();
+            setValidWords();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             Text = $"Scrabejer {VER}";
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
 
-        /*  private void button2_Click(object sender, EventArgs e)
-          {
-              tableLayoutPanel1.BackColor = Color.White;
-              tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-          } */
-
-        /* private void button1_Click(object sender, EventArgs e)
-         {
-             tableLayoutPanel1.Size += new Size(100,100);
-
-         } */
-
-        /*  private void button3_Click(object sender, EventArgs e)
-          {
-
-              Button button = new Button();
-              button.Text = "add colums";
-              button.BackColor = Color.White;
-
-              tableLayoutPanel1.Controls.Add(button, 0, 0);
-
-              button.Click += new EventHandler(mysteryButtonClicked);
-          } */
-
-        /*   private void mysteryButtonClicked(object sender, EventArgs e)
-           {
-               if (sender is not Button b)
-               {
-                   MessageBox.Show("dang");
-                   return;
-               }
-               tableLayoutPanel1.ColumnCount += 1;
-
-               Button button = new();
-               button.Text = "new";
-               button.BackColor = Color.Red;
-
-               tableLayoutPanel1.Controls.Add(button, tableLayoutPanel1.ColumnCount - 1, 0);
-
-
-           } */
+            
+        }
     }
 }
