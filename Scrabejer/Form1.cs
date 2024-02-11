@@ -1,29 +1,18 @@
-using System.Collections.Generic;
-
 namespace Scrabejer
 {
     public partial class Form1 : Form
     {
-
         public const string VER = "v2.0.0";
-
         private readonly DictionaryScavenger scavenger;
-        private readonly ScrabbleDictionaries scrabbleDictionarys;
-
-       // private readonly IEnumerator<string[]> dictionaryEnumerator;
+        private readonly IEnumerator<ScrabbleDictionaryLanguage> dictionaryEnumerator;
         public Form1()
         {
             InitializeComponent();
-            try
-            {
-                scavenger = new DictionaryScavenger();
-                setDictionary(ScrabbleDictionaryLanguage.WEBSTER);
-            }
-            catch
-            {
-            }
-       //     dictionaryEnumerator = new List<string[]> { scrabbleDictionarys.Collins, scrabbleDictionarys.Webster }.GetEnumerator();
-            
+            scavenger = new DictionaryScavenger();
+            setLanguage(ScrabbleDictionaryLanguage.WEBSTER);
+            dictionaryEnumerator = Enum.GetValues<ScrabbleDictionaryLanguage>().ToList().GetEnumerator();
+            dictionaryEnumerator.MoveNext();
+            ResizeRedraw = false;
         }
         private void setValidWords()
         {
@@ -32,20 +21,21 @@ namespace Scrabejer
             scavenger.LettersInBank = textBox1.Text;
             listBox1.Items.AddRange(scavenger.ValidWords.ToArray());
         }
-        private void setDictionary(ScrabbleDictionaryLanguage lang)
+        private void setLanguage(ScrabbleDictionaryLanguage lang)
         {
             scavenger.SetLanguage(lang);
             switch (lang)
             {
                 case ScrabbleDictionaryLanguage.WEBSTER:
-                    button4.Image = null;
+                    button4.BackgroundImage = Properties.Resources.Webster1;
                     break;
                 case ScrabbleDictionaryLanguage.COLLINS:
-                    button4.Image = null;
+                    button4.BackgroundImage = Properties.Resources.Collins1;
                     break;
                 default:
-                    throw new ArgumentException("lang cannot be NONE.");
+                    throw new ArgumentException("lang invalid.");
             }
+            setValidWords();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -63,8 +53,13 @@ namespace Scrabejer
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (!dictionaryEnumerator.MoveNext())
+            {
+                dictionaryEnumerator.Reset();
+                dictionaryEnumerator.MoveNext();
+            }
 
-            
+            setLanguage(dictionaryEnumerator.Current);
         }
     }
 }

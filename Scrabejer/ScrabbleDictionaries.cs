@@ -9,24 +9,15 @@ namespace Scrabejer
 {
     internal class ScrabbleDictionaries : Dictionary<ScrabbleDictionaryLanguage, string[]>
     {
-        
-        public string[] Collins { get; private set; } = new string[] { };
-        public string[] Webster { get; private set; } = new string[] { };
-
         public ScrabbleDictionaries()
         {
-            Collins = JsonSerializer.Deserialize<string[]>(Encoding.Default.GetString(Properties.Resources.collins));
-            Webster = JsonSerializer.Deserialize<string[]>(Encoding.Default.GetString(Properties.Resources.webster));
-            this[ScrabbleDictionaryLanguage.WEBSTER] = Webster;
-            this[ScrabbleDictionaryLanguage.COLLINS] = Collins;
+            this[ScrabbleDictionaryLanguage.COLLINS] = JsonSerializer.Deserialize<string[]>(Encoding.Default.GetString(Properties.Resources.collins));
+            this[ScrabbleDictionaryLanguage.WEBSTER] = JsonSerializer.Deserialize<string[]>(Encoding.Default.GetString(Properties.Resources.webster));
         }
-
-        
     }
     public enum ScrabbleDictionaryLanguage
     {
         WEBSTER,
-        COLLINS,
-        NONE
+        COLLINS
     }
 }

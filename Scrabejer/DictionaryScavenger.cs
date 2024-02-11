@@ -34,14 +34,13 @@ namespace Scrabejer
             { 'z',10 },
         };
 
-        private readonly ScrabbleDictionaries dictionaries;
-    
-
-        public const string SCRABBLE_DICTIONARY_PATH = "dictionary.json";
-
         public static readonly List<string> INVALID_RETURN = new() { "Invalid Regex Pattern!" };
 
-        private string[] scrabbleWords;
+        private readonly ScrabbleDictionaries dictionaries;
+   
+        public string RegexPattern { get; set; }
+        public string LettersInBank { get; set; }
+
         private readonly List<string> validWords = new();
         public List<string> ValidWords
         {
@@ -52,14 +51,15 @@ namespace Scrabejer
                 return validWords;
             }
         }
-        public string RegexPattern { get; set; }
-        public string LettersInBank { get; set; }
 
         public DictionaryScavenger()
         {
             dictionaries = new ScrabbleDictionaries();
-            SetLanguage(ScrabbleDictionaryLanguage.NONE);
         }
+
+
+
+        private string[] scrabbleWords;
         public void SetLanguage(ScrabbleDictionaryLanguage lang)
         {
             scrabbleWords = dictionaries[lang];
@@ -91,10 +91,10 @@ namespace Scrabejer
             {
                 if (word.ContainsOnlyOnce(letters) && regex.IsMatch(word)) validWords.Add(word);
             }
-            return validWords.OrderByDescending(word => GetPoints(word));
+            return validWords.OrderByDescending(word => getPoints(word));
         }
 
-        public static int GetPoints(string word)
+        private static int getPoints(string word)
         {
             int points = 0;
             foreach (char c in word)
