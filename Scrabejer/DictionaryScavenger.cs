@@ -66,6 +66,8 @@ namespace Scrabejer
         }
         private IEnumerable<string> getWordsForRegexAndLetters(string regexPattern, string letters)
         {
+            regexPattern = regexPattern.ToLower();
+            letters = letters.ToLower();
             List<string> validWords = new();
 
             Regex regex;
