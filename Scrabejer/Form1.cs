@@ -2,7 +2,7 @@ namespace Scrabejer
 {
     public partial class Form1 : Form
     {
-        public const string VER = "v2.0.0";
+        public const string VER = "v2.0.1";
         private readonly DictionaryScavenger scavenger;
         private readonly IEnumerator<ScrabbleDictionaryLanguage> dictionaryEnumerator;
         public Form1()
@@ -12,7 +12,7 @@ namespace Scrabejer
             setLanguage(ScrabbleDictionaryLanguage.WEBSTER);
             dictionaryEnumerator = Enum.GetValues<ScrabbleDictionaryLanguage>().ToList().GetEnumerator();
             dictionaryEnumerator.MoveNext();
-            ResizeRedraw = false;
+            ResizeRedraw = true;
         }
         private void setValidWords()
         {
