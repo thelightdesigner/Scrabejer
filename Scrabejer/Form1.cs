@@ -2,7 +2,7 @@ namespace Scrabejer
 {
     public partial class Form1 : Form
     {
-        public const string VER = "v2.0.1";
+        public const string VER = "v2.0.2-debug";
         private readonly DictionaryScavenger scavenger;
         private readonly IEnumerator<ScrabbleDictionaryLanguage> dictionaryEnumerator;
         public Form1()

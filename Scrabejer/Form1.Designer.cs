@@ -50,7 +50,7 @@
             // 
             // textBox2
             // 
-            textBox2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+          //  textBox2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             textBox2.BackColor = SystemColors.Menu;
             textBox2.BorderStyle = BorderStyle.None;
             textBox2.Font = new Font("PixelSplitter", 25.8749962F, FontStyle.Bold, GraphicsUnit.Point);
@@ -65,7 +65,7 @@
             // 
             // textBox1
             // 
-            textBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+          //  textBox1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             textBox1.BackColor = SystemColors.Menu;
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Cursor = Cursors.IBeam;
@@ -81,7 +81,7 @@
             // 
             // button4
             // 
-            button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+       //     button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button4.BackgroundImageLayout = ImageLayout.Stretch;
             button4.FlatStyle = FlatStyle.Popup;
             button4.Location = new Point(860, 634);
@@ -105,8 +105,8 @@
             Controls.Add(listBox1);
             Controls.Add(textBox1);
             Margin = new Padding(6);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "Scrabejer";
+            Text = "Scrabejer";
             Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
